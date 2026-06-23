@@ -6,6 +6,7 @@ import 'package:template_flutter/features/pagination/presentation/bloc/products_
 import 'package:template_flutter/features/pagination/presentation/widgets/error_view.dart';
 import 'package:template_flutter/features/pagination/presentation/widgets/list_footer.dart';
 import 'package:template_flutter/features/pagination/presentation/widgets/product_card.dart';
+import 'package:template_flutter/features/pagination/presentation/widgets/product_card_shimmer.dart';
 import '../bloc/products_bloc.dart';
 import '../bloc/products_state.dart';
 
@@ -57,7 +58,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
           // ── Initial / Loading ──────────────────────────────────────────
           if (state.status == ProductsStatus.initial ||
               state.status == ProductsStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return ListView.separated(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+              itemCount: 8,
+              separatorBuilder: (_, _) => const SizedBox(height: 10),
+              itemBuilder: (_, __) => const ProductCardShimmer(),
+            );
           }
 
           // ── Error (no products yet) ────────────────────────────────────
@@ -99,7 +105,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                   // ── Product card ──────────────────────────────────────
                   return ProductCard(product: state.products[index]);
-                  
                 },
               ),
             ),
@@ -109,8 +114,3 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 }
-
-
-
-
-

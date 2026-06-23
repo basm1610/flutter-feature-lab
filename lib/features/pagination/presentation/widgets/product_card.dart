@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:template_flutter/features/pagination/data/models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
@@ -27,9 +28,12 @@ class ProductCard extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: product.thumbnail,
               fit: BoxFit.cover,
-              placeholder: (_, __) => Container(
-                color: colorScheme.surfaceContainerHighest,
-                child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+              placeholder: (_, __) => Shimmer.fromColors(
+  baseColor: Colors.grey.shade300,
+  highlightColor: Colors.grey.shade100,
+  child: Container(
+    color: Colors.white,
+  ),
               ),
               errorWidget: (_, __, ___) => Container(
                 color: colorScheme.errorContainer,
